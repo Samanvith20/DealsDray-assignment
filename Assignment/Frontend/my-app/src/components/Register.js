@@ -19,7 +19,7 @@ const Register = () => {
   const [message, setMessage] = useState([]);
 
   const onSubmit = async (data) => {
-    console.log(data);
+   
     
     try {
       const response = await axios.post('http://localhost:3001/api/v1/users/register', data, {
@@ -27,11 +27,9 @@ const Register = () => {
           'Content-Type': 'application/json',
         },
       });
-      // Handle successful registration
+      navigate('/login');
       setMessage(response.data.message);
-      setTimeout(() => {
-        navigate('/');
-      }, 1500);
+      
     } catch (error) {
       // Handle errors
       if (error.response) {

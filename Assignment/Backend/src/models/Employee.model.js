@@ -30,7 +30,7 @@ const EmployeeSchema = new mongoose.Schema({
     enum: ['MCA', 'BCA', 'BSC'],
     required: true,
   },
-  imgUpload: {
+  image: {
     type: String, // URL or path to the uploaded image
   },
   

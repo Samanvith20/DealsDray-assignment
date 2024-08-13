@@ -17,13 +17,10 @@ const Login = () => {
     try {
       const response = await axios.post('http://localhost:3001/api/v1/users/login', data);
         
-      // Handle successful login
-      setMessage({ text: response.data.message, type: 'success' });
-      
-      // Redirect to home page after successful login
-      setTimeout(() => {
-        navigate('/');
-      }, 1500); // Redirect after 1.5 seconds to allow the user to see the success message
+      if (response.status === 200) {
+        localStorage.setItem('isLoggedIn', 'true');  // Set the flag in local storage
+        navigate('/');  
+      }
       
     } catch (error) {
       // Handle errors
