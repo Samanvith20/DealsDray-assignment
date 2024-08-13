@@ -1,9 +1,9 @@
 import mongoose from "mongoose"
-import { DB_NAME } from "../utils/constants.js"
+
  const connectdb = async ()=>{
      try {
-    const connectionInstance=await mongoose.connect(`${process.env.MONGODB_URL}${DB_NAME}`)
-   
+    const connectionInstance=await mongoose.connect(`mongodb+srv://yervala:Samanvith@cluster0.2zziw.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0$`)
+    
         
      } catch (error) {
          console.error("Failed to connect DB:", error)
