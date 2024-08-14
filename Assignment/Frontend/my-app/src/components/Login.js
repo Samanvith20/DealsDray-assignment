@@ -1,25 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
+import { UserContext } from './Usercontext';
 
 
 const Login = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+  const { register, handleSubmit, formState: { errors } } = useForm();
   const [message, setMessage] = useState(null);
   const navigate = useNavigate();
+  const { updateUser } = useContext(UserContext);
 
   const onSubmit = async (data) => {
     try {
       const response = await axios.post('http://localhost:3001/api/v1/users/login', data);
-        
+      console.log(response);
+      
       if (response.status === 200) {
+        const {  username, _id } = response.data.data;
+        
+         
         localStorage.setItem('isLoggedIn', 'true');  // Set the flag in local storage
-        navigate('/');  
+        updateUser(username, _id); 
+        navigate('/');
       }
       
     } catch (error) {
@@ -48,7 +51,6 @@ const Login = () => {
             alt="Logo"
             className="w-13 h-11 mr-2"
           />
-       
         </div>
         <Link to="/register" className="absolute top-4 right-4 text-blue-500 hover:underline">
           Register

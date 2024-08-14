@@ -77,6 +77,8 @@ export const getEmployees = async (req, res) => {
 // Update employee details
 export const updateEmployee = async (req, res) => {
   const { id } = req.params;
+  console.log(id);
+  
   const { name, email, mobileNo, designation, gender, course } = req.body;
 
   try {
@@ -131,3 +133,22 @@ export const deleteEmployee = async (req, res) => {
     return res.status(500).json(new ApiError(500, 'Internal server error.'));
   }
 };
+
+//get employee details by id
+
+export const getEmployee = async (req, res) => {
+  const id=req.params.id;
+  // console.log(id);
+  try {
+    const employee = await Employee.findById(id);
+    if(!employee){
+      return res.status(404).json(new ApiError(404, 'Employee not found.'));
+    }
+    return res.status(200).json(new ApiResponse(200, employee, 'Employee found successfully.'));
+
+}
+catch (error) {
+  console.error(error);
+  return res.status(500).json(new ApiError(500, 'Internal server error.'));
+}
+}

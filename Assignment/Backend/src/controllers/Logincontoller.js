@@ -32,4 +32,32 @@ const LoginUser = async (req, res) => {
   }
 };
 
+export const getUser= async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    if (!user) {
+      return res.status(404).json(new ApiError(404, "User not found"));
+    }
+    return res.status(200).json(new ApiResponse(200, user, "User found successfully"));
+  }
+  catch (error) {
+    console.error(error);
+    return res.status(500).json(new ApiError(500, "Internal Server Error"));
+  }
+}
+
+export const logoutUser = async (req, res) => {
+  try {
+    const user= await User.findByIdAndDelete(req.params.id);
+    if (!user) {
+      return res.status(404).json(new ApiError(404, "User not found"));
+    }
+    return res.status(200).json(new ApiResponse(200, user, "User deleted successfully"));
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json(new ApiError(500, "Internal Server Error"));
+  }
+}
+
+
 export default LoginUser;

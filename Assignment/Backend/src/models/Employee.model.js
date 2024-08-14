@@ -27,7 +27,7 @@ const EmployeeSchema = new mongoose.Schema({
   },
   course: {
     type: String,
-    enum: ['MCA', 'BCA', 'BSC'],
+    enum: ["MCA", "BCA", "BSC"],
     required: true,
   },
   image: {
